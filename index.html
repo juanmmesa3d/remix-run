@@ -1,0 +1,613 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="A playable creator-driven runner by Juan Mesa: five original characters, three worlds and two bosses, from concept art to a playable game."><meta property="og:title" content="Remix Run by Juan Mesa"><meta property="og:description" content="A playable creator-driven runner by Juan Mesa: five original characters, three worlds and two bosses, from concept art to a playable game."><meta property="og:image" content="https://juanmmesa3d.github.io/remix-run/img/cover.jpg"><meta property="og:url" content="https://juanmmesa3d.github.io/remix-run/"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="img/icon.png"><title>Remix Run by Juan Mesa</title></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* Layout: a game's launch page that turns into a case study. Full-bleed hero world with live runners,
+   then alternating bands: crew, gameplay, the making-of timeline, contact. One committed night-castle look. */
+:root{
+  --night:#110E28; --band:#17133A; --panel:#211C4C; --panel-2:#2B255E; --line:#3A3373;
+  --ink:#F6F3FF; --muted:#B9B1DE; --gold:#FFC23D; --pink:#FF4FA8; --teal:#34E3D0; --violet:#A57BFF; --red:#FF4B5C;
+  --display:'Bungee','Arial Black',Impact,sans-serif;
+  --body:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --gut:max(16px, env(safe-area-inset-left, 0px));
+  --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+img{max-width:100%;display:block}
+a{color:var(--gold)}
+a:hover{color:#FFE08A}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gut-r)}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4.6vw,52px)}
+h3{font-size:21px}
+p{margin:0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--pink)}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:62ch}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 28px;border-radius:16px;font-family:var(--display);font-size:19px;text-decoration:none;color:var(--night);background:var(--gold);box-shadow:0 6px 0 #A9700A;transition:transform .12s, box-shadow .12s}
+.btn:hover{color:var(--night);transform:translateY(-2px);box-shadow:0 8px 0 #A9700A}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #A9700A}
+.btn.ghost{background:rgba(17,14,40,.55);color:var(--ink);box-shadow:none;border:2px solid rgba(255,255,255,.35);font-family:var(--body);font-weight:700;font-size:16px}
+.btn.ghost:hover{border-color:#fff;color:#fff}
+
+/* ---------- HERO: built around the cover art ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate;background:#2A1466}
+.hero-bg{position:absolute;inset:-80px;z-index:-2;background:url(img/cover.jpg) center 30%/cover no-repeat;filter:blur(46px) saturate(1.5) brightness(.75);transform:scale(1.15)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(60% 70% at 72% 40%, rgba(255,79,168,.22), transparent 70%),
+  linear-gradient(90deg, rgba(17,14,40,.88) 0%, rgba(17,14,40,.62) 42%, rgba(17,14,40,.12) 70%),
+  linear-gradient(180deg, transparent 55%, var(--night) 100%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:clamp(24px,5vw,72px);align-items:center;padding-block:clamp(40px,6vw,72px) 0}
+.hero-in{display:flex;flex-direction:column;align-items:flex-start;gap:22px;max-width:600px}
+.brand{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-size:15px;letter-spacing:.06em;color:#fff}
+.brand b{font-weight:400;background:var(--gold);color:var(--night);padding:5px 10px;border-radius:8px;box-shadow:0 4px 0 #A9700A}
+.brand span{color:#EDE8FF;font-family:var(--body);font-weight:700;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+.headline{font-size:clamp(38px,5.4vw,68px);color:#fff;text-shadow:0 4px 0 #6B2BD1,0 10px 30px rgba(0,0,0,.45)}
+.headline em{font-style:normal;color:var(--gold)}
+.hero .lede{color:#EDE8FF;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.plays{display:flex;flex-wrap:wrap;gap:8px}
+.plays span{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:#fff;background:rgba(17,14,40,.55);border:1px solid rgba(255,255,255,.18);padding:7px 12px;border-radius:999px}
+.plays svg{color:var(--teal)}
+.poster{position:relative;margin:0;width:clamp(300px,31vw,440px);perspective:1100px}
+.poster-card{position:relative;border-radius:22px;transform:rotateY(-9deg) rotateX(3deg) rotate(1.5deg);transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 0 0 3px rgba(255,255,255,.9),0 14px 0 #3B1680,0 40px 90px rgba(255,79,168,.35),0 30px 60px rgba(0,0,0,.45)}
+.poster img{display:block;width:100%;height:auto;border-radius:22px}
+.poster-card::after{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 48%,transparent 60%);background-size:260% 100%;background-position:120% 0;animation:sheen 5.5s ease-in-out 1s infinite}
+@keyframes sheen{0%,60%{background-position:120% 0}85%,100%{background-position:-60% 0}}
+.sticker{position:absolute;left:-22px;top:26px;z-index:2;font-family:var(--display);font-size:16px;line-height:1;color:var(--night);background:var(--gold);padding:11px 14px;border-radius:12px;transform:rotate(-8deg);box-shadow:0 5px 0 #A9700A,0 12px 24px rgba(0,0,0,.35);text-decoration:none}
+.sticker:hover{color:var(--night);transform:rotate(-4deg) scale(1.05)}
+.glow{position:absolute;inset:8% -6% -4%;z-index:-1;background:radial-gradient(closest-side,rgba(255,194,61,.45),rgba(255,79,168,.25) 55%,transparent);filter:blur(20px)}
+@media (max-width:820px){
+  .hero::before{background:linear-gradient(180deg, transparent 0%, rgba(17,14,40,.35) 45%, rgba(17,14,40,.85) 70%, var(--night) 100%)}
+  .hero-grid{grid-template-columns:1fr;padding-top:18px}
+  .poster{order:-1;justify-self:center;width:min(420px,88vw)}
+  .poster-card{transform:none}
+  .sticker{left:-6px;top:14px;font-size:14px}
+  .hero-in{gap:18px}
+}
+@media (prefers-reduced-motion: reduce){.poster-card{transition:none}.poster-card::after{animation:none}}
+.stage{position:relative;height:clamp(190px,24vw,260px);margin-top:clamp(10px,3vw,30px);overflow:hidden}
+.ledge{--lh:clamp(64px,8vw,96px);--tw:calc(var(--lh) * 1.8 * 1752 / 194);position:absolute;left:0;right:0;bottom:0;height:var(--lh);background:url(img/ledge_tile.jpg) 0 0/var(--tw) calc(var(--lh) * 1.8) repeat-x;animation:scroll 9s linear infinite;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.4) 9%,#000 20%);mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.4) 9%,#000 20%)}
+@keyframes scroll{to{background-position-x:calc(var(--tw) * -1)}}
+.pack{position:absolute;left:0;right:0;bottom:clamp(50px,6.4vw,78px);display:flex;justify-content:center;gap:clamp(4px,2vw,26px)}
+.runner{--h:clamp(110px,15vw,170px);height:var(--h);width:calc(var(--h) * var(--r));background-repeat:no-repeat;background-size:calc(var(--h) * var(--r) * 8) 100%;animation:run .62s steps(8) infinite;filter:drop-shadow(0 10px 8px rgba(0,0,0,.35));flex:none}
+@keyframes run{to{background-position-x:calc(var(--h) * var(--r) * -8)}}
+.credit{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;padding-block:18px;font-size:15px;color:var(--muted);border-top:1px solid var(--line)}
+.credit b{color:var(--ink)}
+
+.lineup{position:relative;margin:0 0 clamp(24px,4vw,40px);border-radius:22px;overflow:hidden;border:2px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.lineup img{width:100%;height:auto}
+.lineup::after{content:"";position:absolute;inset:auto 0 0 0;height:22%;background:linear-gradient(180deg,transparent,rgba(17,14,40,.7));pointer-events:none}
+.lineup .tags{list-style:none;margin:0;padding:0;position:absolute;inset:auto 0 clamp(8px,2vw,18px) 0;z-index:1}
+.lineup .tags li{position:absolute;bottom:0;left:var(--x);transform:translateX(-50%);font-family:var(--display);font-size:clamp(10px,1.5vw,17px);color:#fff;background:rgba(17,14,40,.82);border:2px solid var(--c);padding:4px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.lineup .tags small{font-family:var(--body);font-weight:700;font-size:.7em;color:var(--c);margin-left:4px;text-transform:uppercase;letter-spacing:.08em}
+@media (max-width:620px){.lineup{border-radius:14px}.lineup .tags li{padding:2px 6px;border-width:1px}.lineup .tags small{display:none}}
+/* ---------- STATS ---------- */
+.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:var(--line);border-radius:18px;overflow:hidden;margin-block:clamp(28px,5vw,56px)}
+.stat{background:var(--band);padding:20px 18px;display:flex;flex-direction:column;gap:4px}
+.stat b{font-family:var(--display);font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--muted)}
+
+section{padding-block:clamp(56px,8vw,104px)}
+.band{background:var(--band)}
+.head{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(26px,4vw,44px)}
+
+/* ---------- CREW ---------- */
+.crew{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.card{background:var(--panel);border-radius:20px;padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;min-width:0}
+.card::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--c)}
+.card .runner{--h:150px;margin:6px auto 0;animation-duration:.66s}
+.card h3{color:var(--c)}
+.role{font-size:13px;color:var(--muted);margin-top:-6px}
+.move{font-size:14px}
+.move b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.veh{margin-top:auto;display:flex;align-items:center;gap:10px;background:var(--panel-2);border-radius:12px;padding:8px 10px;font-size:13px}
+.veh img{width:74px;height:40px;object-fit:contain;flex:none}
+
+/* ---------- PLAY ---------- */
+.shots{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.shot{margin:0;background:var(--panel);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.shot img{aspect-ratio:2168/1100;object-fit:cover;width:100%}
+.shot figcaption{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;font-size:15px;color:var(--muted)}
+.shot figcaption b{color:var(--ink);font-size:16px}
+.s-big{grid-column:span 4;grid-row:span 2}
+.s-big img{flex:1;min-height:0}
+.s-side{grid-column:span 2}
+.s-third{grid-column:span 2}
+.systems{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.sys{background:var(--panel);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sys p{font-size:15px;color:var(--muted)}
+.icons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.icon{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:12px;line-height:1.25;color:var(--ink)}
+.icon img{height:46px;width:46px;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.chomp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;align-items:end}
+.chomp figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--muted)}
+.chomp img{height:76px;width:auto}
+.boss{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;background:var(--panel-2);border-radius:14px;padding:10px 12px}
+.boss img{height:64px;width:auto}
+.boss p{font-size:14px;color:var(--muted)}
+.boss b{color:#FF9A4A}
+.strip{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;overflow-x:auto}
+.strip img{height:120px;width:auto;max-width:none;border:0;border-radius:0;background:none}
+.prog{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.prog li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.prog svg{color:var(--gold);margin-top:2px}
+.prog b{color:var(--ink)}
+.prog span{color:var(--muted)}
+
+/* ---------- MAKING OF ---------- */
+.roles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:clamp(36px,5vw,60px)}
+.roles div{background:var(--panel);border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.roles h3{font-size:17px}
+.roles div:first-child h3{color:var(--gold)}
+.roles div:last-child h3{color:var(--teal)}
+.roles p{font-size:15px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(40px,6vw,72px);counter-reset:s}
+.step{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,48px);align-items:start;counter-increment:s}
+.step:nth-child(even) .txt{order:2}
+.txt{display:flex;flex-direction:column;gap:12px;position:sticky;top:20px}
+.num{font-family:var(--display);font-size:15px;color:var(--night);background:var(--gold);border-radius:10px;padding:5px 10px;align-self:flex-start}
+.num::before{content:"Step " counter(s)}
+.txt p{color:var(--muted);font-size:16px}
+.txt p b{color:var(--ink)}
+.vis{display:flex;flex-direction:column;gap:12px;min-width:0}
+.vis img{border-radius:16px;border:1px solid var(--line);background:var(--panel);height:auto}
+.vis figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.vis figcaption{font-size:13px;color:var(--muted)}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.layers{display:grid;grid-template-columns:3fr 1fr;gap:12px}
+.layers .full{grid-column:1/-1}
+.thumbs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ba{display:flex;justify-content:space-between;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 4px}
+.ba span:last-child{color:var(--teal)}
+.note{background:var(--panel-2);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--ink)}
+
+/* ---------- CONTACT ---------- */
+.contact{position:relative;overflow:hidden;background:var(--band)}
+.contact-in{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,5vw,60px);align-items:center}
+.links{display:flex;flex-direction:column;gap:10px}
+.links a{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);font-weight:700;min-height:56px}
+.links a:hover{border-color:var(--gold);color:var(--ink)}
+.mail{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 10px 10px 18px;font-weight:700;min-height:56px}
+.mail span{display:flex;flex-direction:column;min-width:0}
+.mail small{user-select:all;-webkit-user-select:all}
+.mail button{appearance:none;border:0;border-radius:10px;min-height:40px;padding:0 16px;background:var(--gold);color:var(--night);font:inherit;font-weight:700;cursor:pointer}
+.links small{color:var(--muted);font-weight:400;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+footer{padding-block:28px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* first ten seconds + play anywhere */
+.first{margin-top:clamp(40px,6vw,64px);display:flex;flex-direction:column;gap:16px}
+.first h3{font-size:clamp(22px,2.6vw,30px)}
+.first-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px}
+.first-grid .f-wide{grid-row:span 2}
+.anywhere{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(24px,5vw,64px);align-items:center}
+.phone{background:#07051A;border:2px solid #3A3373;border-radius:46px;padding:34px 12px 26px;box-shadow:0 30px 60px rgba(0,0,0,.5), inset 0 0 0 2px #1A1640;position:relative;max-width:340px;margin:0 auto;width:100%}
+.phone::before{content:"";position:absolute;top:12px;left:50%;width:70px;height:12px;margin-left:-35px;border-radius:8px;background:#1F1A44;z-index:1}
+.phone img{border-radius:24px;width:100%}
+.phone.land{border-radius:40px;padding:10px 26px 10px 34px;max-width:none}
+.phone.land::before{top:50%;left:12px;width:12px;height:60px;margin:-30px 0 0;border-radius:8px}
+.phone.land img{border-radius:30px}
+.ctrls{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ctrls li{background:var(--panel);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.ctrls h3{font-size:17px;display:flex;align-items:center;gap:10px;color:var(--gold)}
+.ctrls h3 svg{color:var(--ink);flex:none}
+.ctrls p{font-size:14px;color:var(--muted)}
+.ctrls kbd{font-family:var(--body);font-weight:700;font-size:12px;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 6px;color:var(--ink);background:var(--panel-2)}
+.anywhere-r{display:flex;flex-direction:column;gap:18px;min-width:0}
+.ways{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(20px,4vw,48px);align-items:start}
+.way{margin:0;display:flex;flex-direction:column;gap:16px;min-width:0}
+.tag2{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:18px;color:var(--night);background:var(--gold);border-radius:10px;padding:6px 12px}
+.way.side .tag2{background:var(--teal)}
+.way .phone{margin:0}
+.way.up .phone{max-width:320px;margin:0 auto}
+.keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px;color:var(--muted)}
+.keys li{display:flex;align-items:center;gap:12px}
+.kk{flex:none;min-width:38px;height:38px;padding:0 8px;border-radius:19px;display:grid;place-items:center;font-family:var(--display);font-size:15px;color:#5A3300;background:radial-gradient(circle at 38% 32%,#FFE08A,#FFC23D 50%,#D9921A);box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.kk.pink{color:#fff;background:radial-gradient(circle at 38% 32%,#FF8FC7,#FF4FA8 50%,#B0236A)}
+.kk.dark{color:#E4DEFF;background:linear-gradient(180deg,#34313F,#1F1D27);border-radius:10px;font-family:var(--body);font-weight:700}
+.ctrls.more{margin-top:8px}
+.way-col{display:flex;flex-direction:column;gap:clamp(24px,3vw,36px);min-width:0}
+@media (max-width:980px){
+  .ways{grid-template-columns:1fr}
+
+  .first-grid,.anywhere{grid-template-columns:1fr}
+  .first-grid .f-wide{grid-row:auto}
+  .crew{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .systems{grid-template-columns:1fr}
+  .s-big,.s-side,.s-third{grid-column:1/-1;grid-row:auto}
+  .step,.contact-in{grid-template-columns:1fr}
+  .step:nth-child(even) .txt{order:0}
+  .txt{position:static}
+}
+@media (max-width:620px){
+  .ctrls{grid-template-columns:1fr}
+  body{font-size:16px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats .stat:last-child{grid-column:1/-1}
+  .crew{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card .runner{--h:120px}
+  .pack .runner:nth-child(n+4){display:none}
+  .roles,.pair,.thumbs{grid-template-columns:1fr}
+  .icons{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion: reduce){
+  .runner,.ledge{animation:none}
+  .btn{transition:none}
+}
+</style>
+
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+  <div class="hero-in">
+    <div class="brand"><b>Remix&middot;Run</b><span>A playable prototype by Juan Mesa</span></div>
+    <h1 class="headline">From concept art to a <em>playable game</em> in one night.</h1>
+    <p class="lede">A creator-driven runner across three worlds: a floating castle, a rooftop city and a tiki island. Five characters I designed, each with their own special move and vehicle, plus two bosses to beat.</p>
+    <div class="cta">
+      <a class="btn" href="play/">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"></path></svg>Play Remix Run</a>
+      <a class="btn ghost" href="#making">How I made it</a>
+    </div>
+    <div class="plays" aria-label="Plays on">
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>Desktop</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"></rect></svg>Phone, upright or sideways</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"></path><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6l-.7 6.5A2.5 2.5 0 0 0 6.4 17l2.6-3h6l2.6 3a2.5 2.5 0 0 0 4.4-1.9l-.7-6.5A4 4 0 0 0 17.3 5z"></path></svg>Controller</span>
+    </div>
+  </div>
+  <figure class="poster">
+    <div class="glow" aria-hidden="true"></div>
+    <a class="sticker" href="play/">Play now!</a>
+    <div class="poster-card" id="posterCard">
+      <img src="img/cover.jpg" width="1086" height="1448" alt="Remix Run cover art: Ace leads Volt, Pixie, Hex and Rook toward the camera, with the Tiki Titan looming behind the logo and the tagline Create, Play, Share.">
+    </div>
+  </figure>
+  </div>
+  <div class="stage" aria-hidden="true">
+    <div class="ledge"></div>
+    <div class="pack">
+      <div class="runner" style="--r:0.81;background-image:url(img/run_c1.png);animation-delay:-.1s"></div>
+      <div class="runner" style="--r:0.861;background-image:url(img/run_c2.png);animation-delay:-.3s"></div>
+      <div class="runner" style="--r:0.736;background-image:url(img/run_c0.png)"></div>
+      <div class="runner" style="--r:0.689;background-image:url(img/run_c3.png);animation-delay:-.45s"></div>
+      <div class="runner" style="--r:0.721;background-image:url(img/run_c4.png);animation-delay:-.2s"></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="credit">
+      <span><b>Juan Mesa</b>: concept, character design, art direction and game design</span>
+      <span>Code and asset pipeline built with Claude</span>
+    </div>
+    <div class="stats" role="list" aria-label="Project in numbers">
+      <div class="stat" role="listitem"><b>5</b><span>playable characters</span></div>
+      <div class="stat" role="listitem"><b>70</b><span>rendered animation frames</span></div>
+      <div class="stat" role="listitem"><b>12</b><span>power-ups and level items</span></div>
+      <div class="stat" role="listitem"><b>3</b><span>worlds to run through</span></div>
+      <div class="stat" role="listitem"><b>1</b><span>night, concept to playable</span></div>
+    </div>
+  </div>
+
+  <!-- CREW -->
+  <section class="band" aria-labelledby="crew-h">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow">The crew</div>
+        <h2 id="crew-h">Pick a runner. Each one plays differently.</h2>
+        <p class="lede">Every character has a special move that changes how you read the level, and a vehicle built to match their personality.</p>
+      </div>
+      <figure class="lineup">
+        <img src="img/lineup_final.jpg" width="1774" height="887" loading="lazy" alt="Final character lineup: Pixie, Rook, Ace, Hex and Volt on colored panels, with Magmaw the lava drake boss on the right.">
+        <ul class="tags" aria-hidden="true">
+          <li style="--x:14%;--c:#FF5FB4">Pixie</li><li style="--x:29%;--c:#C9B458">Rook</li><li style="--x:46%;--c:#FF5A6A">Ace</li>
+          <li style="--x:61%;--c:#A57BFF">Hex</li><li style="--x:75.5%;--c:#B8F03A">Volt</li><li class="boss" style="--x:90%;--c:#FF8A1E">Magmaw <small>Boss</small></li>
+        </ul>
+      </figure>
+      <div class="crew">
+        <article class="card" style="--c:#FF5A6A">
+          <div class="runner" style="--r:0.736;background-image:url(img/run_c0.png)" role="img" aria-label="Ace running"></div>
+          <h3>Ace</h3><p class="role">Street runner</p>
+          <p class="move"><b>Slide</b>Drops low under barriers and grabs the stars beneath them.</p>
+          <div class="veh"><img src="img/veh_c0.png" alt=""><span>Scrambler kart</span></div>
+        </article>
+        <article class="card" style="--c:#FF5FB4">
+          <div class="runner" style="--r:0.81;background-image:url(img/run_c1.png);animation-delay:-.2s" role="img" aria-label="Pixie running"></div>
+          <h3>Pixie</h3><p class="role">Trick specialist</p>
+          <p class="move"><b>Triple Jump</b>Always on: a third jump in mid-air reaches the highest routes.</p>
+          <div class="veh"><img src="img/veh_c1.png" alt=""><span>Hover Board</span></div>
+        </article>
+        <article class="card" style="--c:#FFB02E">
+          <div class="runner" style="--r:0.861;background-image:url(img/run_c2.png);animation-delay:-.4s" role="img" aria-label="Rook running"></div>
+          <h3>Rook</h3><p class="role">Heavy tactical</p>
+          <p class="move"><b>Crate Smash</b>Charges through crates, barriers and chompers for bonus points.</p>
+          <div class="veh"><img src="img/veh_c2.png" alt=""><span>Power Bike</span></div>
+        </article>
+        <article class="card" style="--c:#B48CFF">
+          <div class="runner" style="--r:0.689;background-image:url(img/run_c3.png);animation-delay:-.1s" role="img" aria-label="Hex running"></div>
+          <h3>Hex</h3><p class="role">Arcane drifter</p>
+          <p class="move"><b>Float</b>Drifts slowly through the air, built for the longest gaps.</p>
+          <div class="veh"><img src="img/veh_c3.png" alt=""><span>Magic Broom</span></div>
+        </article>
+        <article class="card" style="--c:#34E3D0">
+          <div class="runner" style="--r:0.721;background-image:url(img/run_c4.png);animation-delay:-.3s" role="img" aria-label="Volt running"></div>
+          <h3>Volt</h3><p class="role">Street skater</p>
+          <p class="move"><b>Skate Dash</b>A speed burst that phases straight through obstacles.</p>
+          <div class="veh"><img src="img/veh_c4.png" alt=""><span>Hover Skate</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section aria-labelledby="play-h">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow">How it plays</div>
+        <h2 id="play-h">Easy to pick up, deep enough to replay</h2>
+        <p class="lede">One button to jump, one for your special. High routes pay more stars, combos build to Fever, and new things arrive the farther you run.</p>
+      </div>
+      <div class="shots">
+        <figure class="shot s-big"><img src="img/shot_route.jpg" alt="Pixie running along a floating platform collecting a line of stars, with a times 4 combo badge"><figcaption><b>High route, high reward</b>Floating platforms carry more stars. Chain them for &times;2, &times;3 combos, and hit &times;5 to start Fever.</figcaption></figure>
+        <figure class="shot s-side"><img src="img/shot_chomper.jpg" alt="Rook running toward a purple chomper plant lunging with its mouth open"><figcaption><b>The Chomper</b>It wakes, spots you, lunges and bites. Jump on its head to stomp it.</figcaption></figure>
+        <figure class="shot s-side"><img src="img/shot_kart.jpg" alt="Ace driving his red kart off a glowing jump pad toward stars"><figcaption><b>Vehicles</b>Each character rides their own. Higher jumps, auto-collected stars, one free crash.</figcaption></figure>
+        <figure class="shot s-third"><img src="img/shot_fever.jpg" alt="Volt running during Fever mode with a rainbow trail and a mystery box ahead"><figcaption><b>Fever</b>Double points, a rainbow trail, and crates shatter on contact.</figcaption></figure>
+        <figure class="shot s-third"><img src="img/shot_broom.jpg" alt="Hex flying on her magic broom above the castle ledge"><figcaption><b>Magic Broom</b>Hex's ride glides over waterfall gaps.</figcaption></figure>
+        <figure class="shot s-third"><img src="img/shot_city.jpg" alt="Volt running across a rooftop in Skyline City at sunset, with stars, crates and a shield power-up"><figcaption><b>Skyline City</b>Pick a world on the home screen and run it on its own, or choose All 3 to move through every world.</figcaption></figure>
+      </div>
+      <div class="systems">
+        <div class="sys">
+          <h3>Power-ups and items</h3>
+          <div class="icons">
+            <div class="icon"><img src="img/ic_magnet.png" alt="">Magnet</div>
+            <div class="icon"><img src="img/ic_shield.png" alt="">Shield</div>
+            <div class="icon"><img src="img/ic_speed.png" alt="">Speed</div>
+            <div class="icon"><img src="img/ic_dbljump.png" alt="">+1 Jump</div>
+            <div class="icon"><img src="img/ic_invinc.png" alt="">Invincible</div>
+            <div class="icon"><img src="img/ic_starrush.png" alt="">Star Rush</div>
+            <div class="icon"><img src="img/ic_hourglass.png" alt="">Slow Time</div>
+            <div class="icon"><img src="img/ic_bomb.png" alt="">Bomb</div>
+            <div class="icon"><img src="img/ic_mult.png" alt="">Combo Up</div>
+            <div class="icon"><img src="img/ic_mystery.png" alt="">Mystery Box</div>
+            <div class="icon"><img src="img/ic_pad.png" alt="">Jump Pad</div>
+            <div class="icon"><img src="img/ic_mush.png" alt="">Mushroom</div>
+          </div>
+        </div>
+        <div class="sys">
+          <h3>Hazards</h3>
+          <p>The Chomper follows a four-beat attack, so it reads before it hits.</p>
+          <div class="chomp">
+            <figure><img src="img/chomp_idle.png" alt="Chomper asleep"><figcaption>Idle</figcaption></figure>
+            <figure><img src="img/chomp_detect.png" alt="Chomper awake, mouth open"><figcaption>Detect</figcaption></figure>
+            <figure><img src="img/chomp_bite.png" alt="Chomper with its mouth snapped shut"><figcaption>Bite</figcaption></figure>
+            <figure><img src="img/chomp_lick.png" alt="Chomper licking its lips"><figcaption>Reset</figcaption></figure>
+          </div>
+          <div class="boss"><img src="img/magmaw_windup.png" alt="Magmaw, a lava-rock drake, crouched to swipe"><p><b>Boss: Magmaw.</b> In Skyline City it swipes fire waves, low or high. Jump or stay down. Every dodge fires a counter-attack at its health bar.</p></div>
+          <div class="boss"><img src="img/titan_windup.png" alt="The Tiki Titan, a stone golem, winding up a punch"><p><b>Boss: Tiki Titan.</b> On Tiki Isle it punches flaming boulders. A rolling one means jump, a flying one means duck. Knock its health to zero to win.</p></div>
+          <p>Plus crates, hanging barriers, spikes, waterfall gaps and rooftop drops. You have 3 hearts, so one mistake doesn't end the run.</p>
+        </div>
+        <div class="sys">
+          <h3>Reasons to run again</h3>
+          <ul class="prog">
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 6h3v2a3 3 0 0 1-3 3M7 6H4v2a3 3 0 0 0 3 3"></path></svg><div><b>Shared leaderboard</b> <span>Top 10 runners, live for everyone who plays.</span></div></li>
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"></path><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"></path></svg><div><b>Missions</b> <span>Three goals at a time that pay stars and get harder.</span></div></li>
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V5"></path><path d="M6 11l6-6 6 6"></path></svg><div><b>Upgrades</b> <span>Spend stars on Speed, Jump and Control.</span></div></li>
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-6 6 6 9 0s6 6 9 0"></path></svg><div><b>Unlockable trails</b> <span>Rainbow, Flame and Galaxy.</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="first">
+        <h3>The first ten seconds</h3>
+        <p class="lede">A title screen that shows the characters off, then a launch sequence that builds anticipation before the first jump.</p>
+        <div class="first-grid">
+          <figure class="shot f-wide"><img src="img/title_desk.jpg" alt="Remix Run title screen with Pixie running on a glowing pedestal, character picker, Play and Boss Rush buttons, and tabs"><figcaption><b>Title screen</b>Your runner animates on a pedestal with your trail color. Pick a runner, then Play or take on the boss rush.</figcaption></figure>
+          <figure class="shot"><img src="img/vs.jpg" alt="VS screen with Pixie on a pink panel facing Magmaw on an orange panel"><figcaption><b>Boss rush VS</b>Pick Magmaw, the Tiki Titan or both. The fight opens with a versus card; each round the boss comes back with more health.</figcaption></figure>
+          <figure class="shot"><img src="img/go.jpg" alt="Countdown reaching GO with a colored starburst and the Castle Keep banner"><figcaption><b>3, 2, 1, GO!</b>The runner sprints in while the zone banner drops.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAY ANYWHERE -->
+  <section class="band" aria-labelledby="any-h">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow">Play anywhere</div>
+        <h2 id="any-h">Two ways to hold it</h2>
+        <p class="lede">Hold the phone upright and the bottom half turns into a handheld console. Turn it sideways for the full view with touch buttons along the bottom edge. Turning the phone mid-run pauses the game.</p>
+      </div>
+      <div class="ways">
+        <figure class="way up">
+          <div class="tag2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"></rect></svg> Upright</div>
+          <div class="phone"><img src="img/play_upright.jpg" alt="Remix Run on a phone held upright: Pixie running on a platform at the top, and a purple handheld-style controller below with a D-pad, B and A buttons, and Sound and Pause buttons"></div>
+          <figcaption>
+            <ul class="keys">
+              <li><span class="kk">A</span>Jump, tap again in the air to double jump</li>
+              <li><span class="kk pink">B</span>Special move, the ring shows when it's ready</li>
+              <li><span class="kk dark">&larr; &rarr;</span>Move back and forward</li>
+              <li><span class="kk dark">&darr;</span>Duck, or ground pound in the air</li>
+            </ul>
+          </figcaption>
+        </figure>
+        <div class="way-col">
+        <figure class="way side">
+          <div class="tag2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3"></rect></svg> Sideways</div>
+          <div class="phone land"><img src="img/play_sideways.jpg" alt="Remix Run on a phone held sideways: Volt jumping across Skyline City rooftops in full screen, with move buttons in the bottom-left corner and B and A buttons in the bottom-right corner"></div>
+          <figcaption>
+            <ul class="keys">
+              <li><span class="kk">A</span>Jump, or tap anywhere on the game</li>
+              <li><span class="kk pink">B</span>Special move</li>
+              <li><span class="kk dark">&#9664; &#9654;</span>Move back and forward</li>
+              <li><span class="kk dark">&#9660;</span>Duck, or ground pound in the air</li>
+            </ul>
+          </figcaption>
+        </figure>
+          <ul class="ctrls more">
+            <li><h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"></path></svg>Keyboard</h3><p><kbd>Space</kbd> jump, <kbd>Z</kbd> special, <kbd>&larr;</kbd><kbd>&rarr;</kbd> move, <kbd>&darr;</kbd> duck or ground pound, <kbd>P</kbd> pause.</p></li>
+            <li><h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"></path><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6l-.7 7A3 3 0 0 0 5 19c1 0 1.6-.5 2.1-1.2L8.5 16h7l1.4 1.8c.5.7 1.1 1.2 2.1 1.2a3 3 0 0 0 3-3.4l-.7-7A4 4 0 0 0 17.3 5z"></path></svg>Game controllers</h3><p>Switch Pro, Xbox or PlayStation: <b>A</b>/<b>B</b> jump, <b>X</b>/<b>Y</b> special, D-pad or stick to move, <b>Start</b> pause.</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAKING OF -->
+  <section id="making" aria-labelledby="make-h">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow">How I made it</div>
+        <h2 id="make-h">From character sheets to a playable game</h2>
+        <p class="lede">I approached this the way I'd lead a character team: I set the creative direction, made the art, reviewed every build and decided what to change. I used Claude as my engineer, writing the code and processing my art into game-ready assets.</p>
+      </div>
+      <div class="roles">
+        <div><h3>What I did</h3><p>Concept and creative direction, character design, the five-character lineup, run-cycle and action-pose frames, the environment, enemy, power-up and vehicle concepts, game design and playtesting notes.</p></div>
+        <div><h3>What Claude did</h3><p>Game code and physics, cutting and cleaning my frames (background removal, halo cleanup, frame alignment), splitting the environment into layers, synthesized sound, and tuning from my feedback.</p></div>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Start from the lineup</h3>
+            <p>The project began with a modular avatar sheet in the style of Roblox and Fortnite creator games: the five runners, the Tiki Titan and two characters still in development, plus swappable heads and expressions, outfits, accessories and silhouette tests to keep every shape readable.</p>
+            <p>The first prototype animated this sheet with a cut-out puppet rig. It moved, but a front-facing character never reads as <b>running</b> in a side-scroller, so I went back and created real side-view animation.</p>
+          </div>
+          <div class="vis"><figure><img src="img/sheet_lineup.jpg" width="1618" height="972" alt="Character design sheet: Ace, Pixie, Rook, Hex and Volt standing in a row with the Tiki Titan and two more characters, above panels of heads and expressions, outfits, accessories, silhouettes and in-game style frames"><figcaption>The character sheet: lineup, modular heads, outfits and accessories, silhouette checks and in-game style.</figcaption></figure></div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Render side-view animation</h3>
+            <p>For each character I created 14 side-view frames on one sheet: an <b>8-frame run cycle</b> on top, and six action poses below (take-off crouch, rise, tuck, fall, landing and hit).</p>
+            <p>The frames came back with background-removal fringe and gray halos. Each frame was cleaned, then aligned on the torso so the loop doesn't slide side to side.</p>
+            <p class="note">What I learned: a consistent sheet layout made every character after Ace go in quickly.</p>
+          </div>
+          <div class="vis">
+            <figure><img src="img/sheet_pixie_frames.jpg" alt="Pixie's sheet: eight running frames on top and six action poses below"><figcaption>Pixie's 14-frame sheet.</figcaption></figure>
+            <figure><div class="ba"><span>Raw render</span><span>Game-ready</span></div><img src="img/cleanup_ba.jpg" alt="Ace frames before cleanup with stray fragments and gray halos, and after cleanup with clean edges"></figure>
+          </div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Turn a painting into a level</h3>
+            <p>I created each world as one panorama. It was split into a <b>softened background</b> that scrolls slowly for depth, a <b>tileable ground ledge</b> that moves with the action, and the <b>waterfall gap</b>, which became a hazard.</p>
+            <p>I designed the second world, <b>Skyline City</b>, on the same layout as the castle, so it dropped into the same pipeline. You pick which world to run on the home screen, and the All 3 option crossfades through every world as you go.</p>
+            <p>Early playtests showed the painted platforms looked jumpable, so the background got blur and haze, and the real platforms got a bright rim.</p>
+          </div>
+          <div class="vis layers">
+            <figure class="full"><div class="pair"><img src="img/env_pano.jpg" alt="Castle Keep panorama with floating stone platforms and a waterfall"><img src="img/env_city.jpg" alt="Skyline City panorama with rooftops, water towers, graffiti walls and a skyline"></div><figcaption>Two worlds, one layout: Castle Keep and Skyline City.</figcaption></figure>
+            <figure class="full"><img src="img/env_bg.jpg" alt="Softened background layer with castles and floating platforms"><figcaption>Background layer: parallax, blurred and hazed.</figcaption></figure>
+            <figure><img src="img/env_ground.jpg" alt="Tileable stone ground ledge with grass and glowing triangles"><figcaption>Ground tile.</figcaption></figure>
+            <figure><img src="img/env_fall.jpg" alt="Waterfall gap piece"><figcaption>Gap.</figcaption></figure>
+          </div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Design on paper, then build each system</h3>
+            <p>Each concept sheet became a working system: the gameplay sheet set the HUD, combos and routes, the Chomper sheet defined its idle, detect, lunge and bite beats, and the abilities and vehicle sheets became power-ups and rides.</p>
+            <p>I also cut what didn't earn its place. A Double Jump power-up became <b>+1 Jump</b> because everyone already double jumps, and Star Multiplier was folded into the combo system.</p>
+          </div>
+          <div class="vis thumbs">
+            <figure><img src="img/sheet_gameplay.jpg" alt="Gameplay concept sheet showing HUD, special moves, combo system, power-ups and routes"><figcaption>Gameplay and HUD.</figcaption></figure>
+            <figure><img src="img/sheet_chomper.jpg" alt="Chomper plant concept sheet with gameplay sequence"><figcaption>Chomper enemy.</figcaption></figure>
+            <figure><img src="img/sheet_abilities.jpg" alt="Power-ups and abilities concept sheet"><figcaption>Power-ups and abilities.</figcaption></figure>
+            <figure><img src="img/sheet_vehicles.jpg" alt="Character vehicles concept sheet"><figcaption>Character vehicles.</figcaption></figure>
+          </div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Design an original boss</h3>
+            <p>Skyline City needed a threat bigger than the Chomper. I designed <b>Magmaw</b>, a lava-rock drake, as an 8-frame sheet: stance, a three-frame wind-up, a claw swipe and a recovery.</p>
+            <p>The swipe launches a fire wave either along the ground or at head height. The wind-up shows which one with a glowing warning band and "JUMP!" or "STAY LOW!", so every hit is fair. It attacks three times, then leaves, and you score +600 if it never touched you.</p>
+            <p class="note">I first blocked the fight out with placeholder art, then replaced it with my own creature design so the whole project is original work.</p>
+          </div>
+          <div class="vis">
+            <figure><img src="img/shot_magmaw.jpg" alt="Pixie jumping over a low fire wave launched by Magmaw on a city rooftop"><figcaption>Jumping a low fire wave in Skyline City.</figcaption></figure>
+            <figure><div class="strip"><img src="img/magmaw_frames.png" alt="Magmaw's eight animation frames: stance, wind-up, claw swipe and recovery"></div><figcaption>Magmaw's 8 frames, cleaned and flipped to face the runner.</figcaption></figure>
+          </div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>A third world and a second boss</h3>
+            <p>I painted <b>Tiki Isle</b>, a tropical level with stone ruins, waterfalls and a smoking volcano, and designed the <b>Tiki Titan</b>, a mossy stone golem, as a 12-frame sheet: idle, a four-frame wind-up, a flaming punch and a recovery.</p>
+            <p>Magmaw sweeps a wave across the screen; the Titan punches a single flaming boulder, rolling along the ground or flying at head height. Same fair warning, different rhythm. The boss rush now alternates the two, each in their own world.</p>
+            <p>Playtesting asked for more control, so the home screen now lets you <b>pick the world you run in and the boss you fight</b>. A normal run stays in one world with no bosses; bosses only come when you choose to fight one. A <b>route map</b> at the top shows how far you are from the next 1,000 m mark, or the next world in All 3 mode. Bosses got a <b>health bar</b>: every attack you dodge launches a counter-attack star, and knocking it to zero ends the fight with a big bonus.</p>
+            <p class="note">Because every boss shares one state machine (enter, roar, wind-up, attack, recover, defeated), adding the Titan was mostly art: a frame list per state and a new projectile.</p>
+          </div>
+          <div class="vis">
+            <figure><img src="img/shot_tiki.jpg" alt="Pixie leaping over a flaming boulder punched by the Tiki Titan on Tiki Isle, with waterfalls and a volcano behind"><figcaption>Jumping a rolling boulder on Tiki Isle.</figcaption></figure>
+            <figure><img src="img/shot_bosshp.jpg" alt="Ace counter-attacking the Tiki Titan: the route map at the top shows Island, Castle and City, and the Titan health bar reads 75 of 100"><figcaption>The route map and the boss health bar. Each dodge hits for 25.</figcaption></figure>
+            <figure><div class="strip"><img src="img/titan_frames.png" alt="The Tiki Titan's twelve animation frames: idle, wind-up, flaming punch and recovery"></div><figcaption>The Tiki Titan's 12 frames, cleaned and flipped to face the runner.</figcaption></figure>
+            <figure><img src="img/env_tiki.jpg" alt="Tiki Isle panorama with stone platforms, a tiki statue, waterfalls, a volcano and a stilt hut over the water"><figcaption>Tiki Isle, built on the same layout as the other two worlds.</figcaption></figure>
+          </div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Playtest and tune</h3>
+            <p>Playing it changed the design. Runs ended too fast, so I added <b>3 hearts</b> with a stumble-and-recover instead of instant game over. New content now unlocks with distance so the first minute stays readable.</p>
+            <p>Then came the layer that keeps people playing: a shared leaderboard, missions, a star bank with upgrades and trails, and a soundtrack generated live in the browser.</p>
+          </div>
+          <div class="vis"><figure><img src="img/shot_fever.jpg" alt="Final game during Fever mode with HUD, hearts and combo badge"><figcaption>The shipped prototype.</figcaption></figure></div>
+        </li>
+        <li class="step">
+          <div class="txt">
+            <span class="num"></span>
+            <h3>Polish the first impression</h3>
+            <p>A player decides in seconds whether to keep playing, so I rebuilt the front door. The title screen became a character showcase, and Play now launches a short sequence: the runner sprints in, the zone banner drops, and a 3, 2, 1, GO! countdown starts the run.</p>
+            <p>Then I tested it the way most people will play, on a phone. Holding it upright left the game small with empty space below, so that space became a <b>handheld-style controller</b>. Testing also showed the HUD covering the runner in portrait, so it now compacts on small screens.</p>
+          </div>
+          <div class="vis pair">
+            <figure><img src="img/title_desk.jpg" alt="The redesigned title screen"><figcaption>Title screen.</figcaption></figure>
+            <figure><img src="img/play_upright.jpg" alt="The handheld controller on a phone held upright" style="max-height:420px;width:auto;margin:0 auto"><figcaption>Handheld controller.</figcaption></figure>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" aria-labelledby="contact-h">
+    <div class="wrap contact-in">
+      <div class="head" style="margin:0">
+        <div class="eyebrow">About me</div>
+        <h2 id="contact-h">Juan Mesa</h2>
+        <p class="lede">Lead Character Artist in AAA games, including EA Sports, Activision, WB Games and NVIDIA. I'm building at the meeting point of character art, creative direction and generative AI: real art direction, shipped as playable prototypes.</p>
+        <div class="cta" style="margin-top:8px"><a class="btn" href="play/"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"></path></svg>Play Remix Run</a></div>
+      </div>
+      <nav class="links" aria-label="Find me online">
+        <a href="https://www.linkedin.com/in/juanmesa3d" target="_blank" rel="noopener">LinkedIn <small>linkedin.com/in/juanmesa3d</small></a>
+        <a href="https://jmesa3d.artstation.com" target="_blank" rel="noopener">ArtStation <small>jmesa3d.artstation.com</small></a>
+        <a href="https://juanmmesa.wixsite.com" target="_blank" rel="noopener">Website <small>juanmmesa.wixsite.com</small></a>
+        <div class="mail"><span>Email <small id="mailAddr">juanmmesa@gmail.com</small></span><button type="button" id="copyMail">Copy</button></div>
+      </nav>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Remix Run is a playable prototype. Characters, concept art and design by Juan Mesa. Built with Claude.</div></footer>
+<script>
+(function(){
+  var b = document.getElementById('copyMail'), t = document.getElementById('mailAddr');
+  if (!b) return;
+  b.addEventListener('click', function(){
+    var done = function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1800); };
+    var pick = function(){ var r = document.createRange(); r.selectNodeContents(t); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent = 'Selected'; };
+    try { navigator.clipboard.writeText(t.textContent).then(done, pick); } catch (e) { pick(); }
+  });
+})();
+</script>
+<script>
+(()=>{const c=document.getElementById('posterCard'); if(!c||matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover: hover) and (min-width: 821px)').matches) return;
+const f=c.parentElement; f.addEventListener('pointermove',e=>{const r=f.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+c.style.transform=`rotateY(${x*14}deg) rotateX(${-y*10}deg) scale(1.02)`}); f.addEventListener('pointerleave',()=>{c.style.transform=''});})();
+</script>
+</body></html>
